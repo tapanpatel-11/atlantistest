@@ -4,7 +4,6 @@ terraform {
     dynamodb_table = "tfstate"
     bucket         = "tfstate-for-atlantis"
     encrypt        = true
-    profile        = "personal"
     key            = "terraform.tfstate"
     region         = "us-east-2"
   }
