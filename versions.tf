@@ -1,24 +1,16 @@
+
 terraform {
-  required_version = ">=1.6.1"
-
+ backend "s3" {
+    dynamodb_table = "tfstate"
+    bucket         = "tfstate-for-atlantis"
+    encrypt        = true
+    key            = "terraform.tfstate"
+    region         = "us-east-2"
+  }
   required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.62.1"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.3.2"
+    aws = {
+      source = "hashicorp/aws"
     }
   }
-
-  backend "azurerm" {
-    resource_group_name  = "atlantis"
-    storage_account_name = "terraformstateatlantis"
-    container_name       = "tfstate"
-    key                  = "atlantis.tfstate"
-  }
-}
-provider "azurerm" {
-   features {}
+  required_version = ">= 1.6.1"
 }
